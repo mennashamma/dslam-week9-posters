@@ -1,0 +1,1 @@
+export const firebaseConfig = {"apiKey": "AIzaSyCU5ms1d5p9X7lfJ5kewYLWZzYE22I31fQ", "authDomain": "dslam-week9-posters.firebaseapp.com", "databaseURL": "https://dslam-week9-posters-default-rtdb.europe-west1.firebasedatabase.app", "projectId": "dslam-week9-posters", "appId": "1:898700413581:web:7a24d8c3e4dc20141a70c4"};

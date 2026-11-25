@@ -1,0 +1,82 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "roster": {
+      ".read": "auth != null && root.child('roster').child(auth.uid).child('role').val() === 'admin'",
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        "active": {
+          ".write": "auth != null && root.child('roster').child(auth.uid).child('role').val() === 'admin' && !root.child('reviews').exists() && root.child('state/phase').val() !== 'open'",
+          ".validate": "newData.isBoolean()"
+        }
+      }
+    },
+    "state": {
+      ".read": "auth != null && root.child('roster').child(auth.uid).exists()",
+      ".write": "auth != null && root.child('roster').child(auth.uid).child('role').val() === 'admin'"
+    },
+    "fac": {
+      ".read": "auth != null && root.child('roster').child(auth.uid).child('role').val() === 'admin'",
+      "$poster": {
+        ".write": "auth != null && root.child('roster').child(auth.uid).child('role').val() === 'admin' && root.child('state/phase').val() !== 'revealed'",
+        ".validate": "newData.hasChildren([\"s0\", \"s1\", \"s2\", \"s3\", \"s4\"])",
+        "s0": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+        },
+        "s1": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+        },
+        "s2": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+        },
+        "s3": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+        },
+        "s4": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "reviews": {
+      ".read": "auth != null && root.child('roster').child(auth.uid).child('role').val() === 'admin'",
+      "$poster": {
+        "$uid": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid && !data.exists() && newData.exists() && root.child('roster').child(auth.uid).child('role').val() === 'student' && root.child('roster').child(auth.uid).child('active').val() === true && root.child('roster').child(auth.uid).child('group').val() !== $poster && root.child('state/poster').val() === $poster && root.child('state/phase').val() === 'open'",
+          ".validate": "newData.hasChildren([\"s0\", \"s1\", \"s2\", \"s3\", \"s4\", \"keep\", \"change\", \"learn\"])",
+          "s0": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+          },
+          "s1": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+          },
+          "s2": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+          },
+          "s3": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+          },
+          "s4": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5 && newData.val() % 1 === 0"
+          },
+          "keep": {
+            ".validate": "newData.isString() && newData.val().length >= 15 && newData.val().length <= 1000"
+          },
+          "change": {
+            ".validate": "newData.isString() && newData.val().length >= 15 && newData.val().length <= 1000"
+          },
+          "learn": {
+            ".validate": "newData.isString() && newData.val().length >= 10 && newData.val().length <= 1000"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    }
+  }
+}
